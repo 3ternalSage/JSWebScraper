@@ -16,10 +16,8 @@ function getURLsFromHTML(html, url) {
 }
 
 function notSameDomain(one, other) {
-    // console.log(`'${one}' | '${other}'`)
     const baseURL = new URL(one)
     const otherURL = new URL(other)
-    // console.log(`'${baseURL.host}' | '${otherURL.host}' = ${baseURL.host === otherURL.host}`)
     return baseURL.host !== otherURL.host
 }
 
@@ -51,7 +49,14 @@ async function crawlPage(baseURL, currentURL = baseURL, pages = {}) {
         return pages
     }
 
-    const pageURLS = getURLsFromHTML(pageHTML, currentURL)
+    let pageURLS
+    try {
+        pageURLS = getURLsFromHTML(pageHTML, currentURL)
+    } catch (err) {
+        console.log(`${err.message}`)
+        return pages
+    }
+    
     for (let i = 0; i < pageURLS.length; i++) {
         pages = await crawlPage(baseURL, pageURLS[i], pages)
     }
