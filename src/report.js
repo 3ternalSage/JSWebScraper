@@ -1,3 +1,4 @@
+// Pretty-printer for crawl results
 function printReport(pages) {
     console.log("\n--------------- Crawl Report ---------------\n")
     let sortedPages = sortPages(pages)
@@ -7,6 +8,7 @@ function printReport(pages) {
     console.log("\n--------------- End Report ---------------\n")
 }
 
+// Sort pages by number of internal links, then by alphabetical order
 function sortPages(pages) {
     let arr = Object.entries(pages)
     arr.sort((x, y) => {
